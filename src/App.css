@@ -1,0 +1,29 @@
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  height: 315px;
+  border: 3px solid #63DAFC;
+  border-radius: 10px;
+  margin: 20px;
+  padding: 2px;
+}
+
+.buttonsContainer {
+  display: flex;
+  justify-content: center;
+  width: 450px;
+  border: 2px solid #63DAFC;
+  border-radius: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}

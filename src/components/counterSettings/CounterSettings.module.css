@@ -1,0 +1,40 @@
+.counterSettingsField {
+    display: grid;
+    grid-template-columns: 225px 225px;
+    grid-template-rows: 60px 60px;
+    width: 450px;
+    height: 120px;
+    color: #63DAFC;
+    border: 2px solid #63DAFC;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 20px 0;
+}
+
+.divSettingsText {
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    font-weight: bold;
+    margin: 20px;
+}
+
+.divSettingsInput {
+    display: flex;
+    align-items: center;
+}
+
+.inputCounterSettings {
+    text-align: center;
+    width: 200px;
+    height: 25px;
+    font-size: 15px;
+    font-weight: bold;
+    border: 2px solid #63DAFC;
+    border-radius: 5px;
+    padding: 2px;
+}
+
+.inputCounterSettings:hover {
+    border: 2px solid #3C6C7D;
+}
