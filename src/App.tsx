@@ -1,19 +1,14 @@
-import React, {useState} from 'react';
+import React, {useReducer, useState} from 'react';
 import './App.css';
 import {Display} from './components/display/Display';
 import {CounterSettings} from './components/counterSettings/CounterSettings';
+import {counterReducer, IncValueAC, ResetValueAC, SetSettingsAC} from "./state/counter-reducer";
 
 export type CounterSettingsType = {
     maxValue: number
     startValue: number
-    setMaxValue: (maxValue: number) => void
-    setStartValue: (startValue: number) => void
     setSettingButtonClick: () => void
     buttonSetIsDisabled: boolean
-    setDisabledSetButton: (disabledSetButton: boolean) => void
-    setDisabledIncButton: (disabledIncButton: boolean) => void
-    setDisabledResetButton: (disabledResetButton: boolean) => void
-    setChangingSettings: (changingSettings: boolean) => void
 }
 
 export type DisplayType = {
@@ -33,9 +28,21 @@ export type ButtonType = {
     isDisabled: boolean
 }
 
+export type StateType = {
+    startValue: number,
+    maxValue: number,
+    displayValue: number,
+
+    disabledSetButton: boolean,
+    disabledIncButton: boolean,
+    disabledResetButton: boolean,
+
+    changingSettings: boolean
+}
+
 function App() {
 
-    const state = {
+    let [state, dispatchToState] = useReducer(counterReducer, {
         startValue: 0,
         maxValue: 5,
         displayValue: 0,
@@ -45,67 +52,41 @@ function App() {
         disabledResetButton: true,
 
         changingSettings: false
-    }
+    })
 
-    let [startValue, setStartValue] = useState<number>(0)
-    let [maxValue, setMaxValue] = useState<number>(5)
-    let [displayValue, setDisplayValue] = useState<number>(0)
 
-    let [disabledSetButton, setDisabledSetButton] = useState<boolean>(true)
-    let [disabledIncButton, setDisabledIncButton] = useState<boolean>(false)
-    let [disabledResetButton, setDisabledResetButton] = useState<boolean>(true)
 
-    let [changingSettings, setChangingSettings] = useState<boolean>(false)
-
-    let ButtonSetIsDisabled = (startValue < 0) || (maxValue <= startValue) || disabledSetButton
-    let errorNegValue = (maxValue <= startValue) || (startValue < 0)
+    let ButtonSetIsDisabled = (state.startValue < 0) || (state.maxValue <= state.startValue) || state.disabledSetButton
+    let errorNegValue = (state.maxValue <= state.startValue) || (state.startValue < 0)
 
     function incValue() {
-        if (displayValue < maxValue) {
-            setDisplayValue(++displayValue)
-            setDisabledResetButton(false)
-        }
-        if (displayValue === maxValue) {
-            setDisabledIncButton(true)
-        }
+        dispatchToState(IncValueAC())
     }
 
     function resetValue() {
-        setDisplayValue(startValue)
-        setDisabledResetButton(true)
-        setDisabledIncButton(false)
+        dispatchToState(ResetValueAC())
     }
 
     function setSetting() {
-        setDisplayValue(startValue)
-        setDisabledSetButton(true)
-        setDisabledIncButton(false)
-        setDisabledResetButton(true)
-        setChangingSettings(false)
+        dispatchToState(SetSettingsAC())
     }
 
     return (
         <div className='App'>
             <CounterSettings
-                maxValue={maxValue}
-                startValue={startValue}
-                setMaxValue={setMaxValue}
-                setStartValue={setStartValue}
+                maxValue={state.maxValue}
+                startValue={state.startValue}
                 setSettingButtonClick={setSetting}
                 buttonSetIsDisabled={ButtonSetIsDisabled}
-                setDisabledSetButton={setDisabledSetButton}
-                setDisabledIncButton={setDisabledIncButton}
-                setDisabledResetButton={setDisabledResetButton}
-                setChangingSettings={setChangingSettings}
             />
             <Display
-                displayValue={displayValue}
-                maxValue={maxValue}
+                displayValue={state.displayValue}
+                maxValue={state.maxValue}
                 incValueButtonClick={incValue}
                 resetValueButtonClick={resetValue}
-                buttonIncIsDisabled={disabledIncButton}
-                buttonResetIsDisabled={disabledResetButton}
-                changingSettings={changingSettings}
+                buttonIncIsDisabled={state.disabledIncButton}
+                buttonResetIsDisabled={state.disabledResetButton}
+                changingSettings={state.changingSettings}
                 errorNegValue={errorNegValue}
             />
         </div>

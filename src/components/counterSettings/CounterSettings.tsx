@@ -1,24 +1,33 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import s from './CounterSettings.module.css';
 import {CounterSettingsType} from '../../App';
 import {Button} from '../button/Button';
 
 export function CounterSettings(props: CounterSettingsType) {
 
+    let [startValue, setStartValue] = useState<number>(0)
+    let [maxValue, setMaxValue] = useState<number>(5)
+
+    let [disabledSetButton, setDisabledSetButton] = useState<boolean>(true)
+    let [disabledIncButton, setDisabledIncButton] = useState<boolean>(false)
+    let [disabledResetButton, setDisabledResetButton] = useState<boolean>(true)
+
+    let [changingSettings, setChangingSettings] = useState<boolean>(false)
+
     const onChangeHandlerMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
-        props.setMaxValue(e.currentTarget.valueAsNumber)
-        props.setDisabledSetButton(false)
-        props.setDisabledIncButton(true)
-        props.setDisabledResetButton(true)
-        props.setChangingSettings(true)
+        setMaxValue(e.currentTarget.valueAsNumber)
+        setDisabledSetButton(false)
+        setDisabledIncButton(true)
+        setDisabledResetButton(true)
+        setChangingSettings(true)
     }
 
     const onChangeHandlerStartValue = (e: ChangeEvent<HTMLInputElement>) => {
-        props.setStartValue(e.currentTarget.valueAsNumber)
-        props.setDisabledSetButton(false)
-        props.setDisabledIncButton(true)
-        props.setDisabledResetButton(true)
-        props.setChangingSettings(true)
+        setStartValue(e.currentTarget.valueAsNumber)
+        setDisabledSetButton(false)
+        setDisabledIncButton(true)
+        setDisabledResetButton(true)
+        setChangingSettings(true)
     }
 
     return (
