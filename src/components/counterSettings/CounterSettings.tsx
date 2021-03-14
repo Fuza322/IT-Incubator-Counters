@@ -8,26 +8,14 @@ export function CounterSettings(props: CounterSettingsType) {
     let [startValue, setStartValue] = useState<number>(0)
     let [maxValue, setMaxValue] = useState<number>(5)
 
-    let [disabledSetButton, setDisabledSetButton] = useState<boolean>(true)
-    let [disabledIncButton, setDisabledIncButton] = useState<boolean>(false)
-    let [disabledResetButton, setDisabledResetButton] = useState<boolean>(true)
-
-    let [changingSettings, setChangingSettings] = useState<boolean>(false)
-
     const onChangeHandlerMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
         setMaxValue(e.currentTarget.valueAsNumber)
-        setDisabledSetButton(false)
-        setDisabledIncButton(true)
-        setDisabledResetButton(true)
-        setChangingSettings(true)
+        props.changeInputValue()
     }
 
     const onChangeHandlerStartValue = (e: ChangeEvent<HTMLInputElement>) => {
         setStartValue(e.currentTarget.valueAsNumber)
-        setDisabledSetButton(false)
-        setDisabledIncButton(true)
-        setDisabledResetButton(true)
-        setChangingSettings(true)
+        props.changeInputValue()
     }
 
     return (

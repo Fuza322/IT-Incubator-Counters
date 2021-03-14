@@ -12,10 +12,25 @@ export type SetSettingsActionType = {
     type: 'SET-SETTINGS'
 }
 
-export type ActionsType = IncValueActionType | ResetValueActionType | SetSettingsActionType
+export type ChangeInputValueActionType = {
+    type: 'CHANGE-INPUT-VALUE'
+}
 
+export type ActionsType = IncValueActionType | ResetValueActionType | SetSettingsActionType | ChangeInputValueActionType
 
-export function counterReducer(state: StateType, action: ActionsType) {
+const initialState: StateType = {
+    startValue: 0,
+    maxValue: 5,
+    displayValue: 0,
+
+    disabledIncButton: false,
+    disabledResetButton: true,
+    disabledSetButton: true,
+
+    changingSettings: false
+}
+
+export function counterReducer(state: StateType = initialState, action: ActionsType) {
     switch (action.type) {
         case 'INC-VALUE': {
             if (state.displayValue < state.maxValue) {
@@ -33,13 +48,19 @@ export function counterReducer(state: StateType, action: ActionsType) {
             state.disabledIncButton = false
             return {...state}
         }
-
         case 'SET-SETTINGS': {
             state.displayValue = state.startValue
             state.disabledSetButton = true
             state.disabledIncButton = false
             state.disabledResetButton = true
             state.changingSettings = false
+            return {...state}
+        }
+        case 'CHANGE-INPUT-VALUE': {
+            state.disabledIncButton = true
+            state.disabledResetButton = true
+            state.disabledSetButton = false
+            state.changingSettings = true
             return {...state}
         }
         default: {
@@ -58,4 +79,8 @@ export const ResetValueAC = (): ResetValueActionType => {
 
 export const SetSettingsAC = (): SetSettingsActionType => {
     return {type: 'SET-SETTINGS'}
+}
+
+export const changeInputValueAC = (): ChangeInputValueActionType => {
+    return {type: 'CHANGE-INPUT-VALUE'}
 }

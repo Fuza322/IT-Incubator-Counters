@@ -1,25 +1,42 @@
-import React, {useReducer, useState} from 'react';
+import React from 'react';
 import './App.css';
 import {Display} from './components/display/Display';
 import {CounterSettings} from './components/counterSettings/CounterSettings';
-import {counterReducer, IncValueAC, ResetValueAC, SetSettingsAC} from "./state/counter-reducer";
+import {changeInputValueAC, IncValueAC, ResetValueAC, SetSettingsAC} from "./state/counter-reducer";
+import {useDispatch, useSelector} from 'react-redux';
+import {AppRootState} from './state/store';
+
+export type StateType = {
+    startValue: number,
+    maxValue: number,
+    displayValue: number,
+
+    disabledIncButton: boolean,
+    disabledResetButton: boolean,
+    disabledSetButton: boolean,
+
+    changingSettings: boolean
+}
 
 export type CounterSettingsType = {
-    maxValue: number
     startValue: number
-    setSettingButtonClick: () => void
+    maxValue: number
+    disabledIncButton: boolean
+    disabledSetButton: boolean
     buttonSetIsDisabled: boolean
+    setSettingButtonClick: () => void
+    changeInputValue: () => void
 }
 
 export type DisplayType = {
     displayValue: number
     maxValue: number
-    incValueButtonClick: () => void
-    resetValueButtonClick: () => void
     buttonIncIsDisabled: boolean
     buttonResetIsDisabled: boolean
     changingSettings: boolean
     errorNegValue: boolean
+    incValueButtonClick: () => void
+    resetValueButtonClick: () => void
 }
 
 export type ButtonType = {
@@ -28,66 +45,51 @@ export type ButtonType = {
     isDisabled: boolean
 }
 
-export type StateType = {
-    startValue: number,
-    maxValue: number,
-    displayValue: number,
-
-    disabledSetButton: boolean,
-    disabledIncButton: boolean,
-    disabledResetButton: boolean,
-
-    changingSettings: boolean
-}
-
 function App() {
 
-    let [state, dispatchToState] = useReducer(counterReducer, {
-        startValue: 0,
-        maxValue: 5,
-        displayValue: 0,
-
-        disabledSetButton: true,
-        disabledIncButton: false,
-        disabledResetButton: true,
-
-        changingSettings: false
-    })
+    const dispatch = useDispatch()
+    const counterState = useSelector<AppRootState, StateType>(state => state.counterState)
 
 
-
-    let ButtonSetIsDisabled = (state.startValue < 0) || (state.maxValue <= state.startValue) || state.disabledSetButton
-    let errorNegValue = (state.maxValue <= state.startValue) || (state.startValue < 0)
+    let ButtonSetIsDisabled = (counterState.startValue < 0) || (counterState.maxValue <= counterState.startValue) || counterState.disabledSetButton
+    let errorNegValue = (counterState.maxValue <= counterState.startValue) || (counterState.startValue < 0)
 
     function incValue() {
-        dispatchToState(IncValueAC())
+        dispatch(IncValueAC())
     }
 
     function resetValue() {
-        dispatchToState(ResetValueAC())
+        dispatch(ResetValueAC())
     }
 
     function setSetting() {
-        dispatchToState(SetSettingsAC())
+        dispatch(SetSettingsAC())
+    }
+
+    function changeInputValue() {
+        dispatch(changeInputValueAC())
     }
 
     return (
         <div className='App'>
             <CounterSettings
-                maxValue={state.maxValue}
-                startValue={state.startValue}
-                setSettingButtonClick={setSetting}
+                startValue={counterState.startValue}
+                maxValue={counterState.maxValue}
+                disabledIncButton={counterState.disabledIncButton}
+                disabledSetButton={counterState.disabledSetButton}
                 buttonSetIsDisabled={ButtonSetIsDisabled}
+                setSettingButtonClick={setSetting}
+                changeInputValue={changeInputValue}
             />
             <Display
-                displayValue={state.displayValue}
-                maxValue={state.maxValue}
+                displayValue={counterState.displayValue}
+                maxValue={counterState.maxValue}
+                buttonIncIsDisabled={counterState.disabledIncButton}
+                buttonResetIsDisabled={counterState.disabledResetButton}
+                changingSettings={counterState.changingSettings}
+                errorNegValue={errorNegValue}
                 incValueButtonClick={incValue}
                 resetValueButtonClick={resetValue}
-                buttonIncIsDisabled={state.disabledIncButton}
-                buttonResetIsDisabled={state.disabledResetButton}
-                changingSettings={state.changingSettings}
-                errorNegValue={errorNegValue}
             />
         </div>
     );
