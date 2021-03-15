@@ -9,8 +9,9 @@ export type ResetValueActionType = {
 }
 
 export type SetSettingsActionType = {
-    type: 'SET-SETTINGS',
-    // startValue: number
+    type: 'SET-SETTINGS'
+    maxValue: number
+    startValue: number
 }
 
 export type ChangeStartValueActionType = {
@@ -45,20 +46,20 @@ const initialState: StateType = {
 export function counterReducer(state: StateType = initialState, action: ActionsType) {
     switch (action.type) {
         case 'INC-VALUE': {
-            if (state.displayValue < state.maxValue) {
+            debugger
+            if (state.displayValue < state.maxValue - 1) {
                 return {
                     ...state,
-                    displayValue: ++state.displayValue,
+                    displayValue: state.displayValue + 1,
                     disabledResetButton: false
                 }
-            }
-            if (state.displayValue === state.maxValue) {
+            } else {
                 return {
                     ...state,
+                    displayValue: state.displayValue + 1,
                     disabledIncButton: true
                 }
             }
-            return state
         }
         case 'RESET-VALUE': {
             return {
@@ -68,10 +69,13 @@ export function counterReducer(state: StateType = initialState, action: ActionsT
                 disabledIncButton: false
             }
         }
-        case 'SET-SETTINGS': {
+        case "SET-SETTINGS": {
+
             return {
                 ...state,
-                displayValue: state.startValue,
+                maxValue: action.maxValue,
+                startValue: action.startValue,
+                displayValue: action.startValue,
                 disabledSetButton: true,
                 disabledIncButton: false,
                 disabledResetButton: true,
@@ -112,8 +116,8 @@ export const ResetValueAC = (): ResetValueActionType => {
     return {type: 'RESET-VALUE'}
 }
 
-export const SetSettingsAC = (): SetSettingsActionType => {
-    return {type: 'SET-SETTINGS'}
+export const SetSettingsAC = (maxValue: number, startValue: number): SetSettingsActionType => {
+    return {type: 'SET-SETTINGS', maxValue: maxValue, startValue: startValue}
 }
 
 export const ChangeStartValueAC = (startValue: number): ChangeStartValueActionType => {
