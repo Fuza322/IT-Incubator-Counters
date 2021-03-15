@@ -7,7 +7,7 @@ import {AppRootStateType} from "../../state/store";
 
 export function Display(props: DisplayType) {
 
-    const {maxValue, displayValue, disabledIncButton, disabledResetButton, changingSettings} = useSelector<AppRootStateType, StateType>(state => state.counterState)
+    const {maxValue, startValue, displayValue, changingSettings} = useSelector<AppRootStateType, StateType>(state => state.counterState)
 
     return (
         <div className='wrapper'>
@@ -22,12 +22,12 @@ export function Display(props: DisplayType) {
                 <Button
                     buttonName={'inc'}
                     onClick={props.incValueButtonClick}
-                    isDisabled={disabledIncButton}
+                    isDisabled={displayValue >= maxValue}
                 />
                 <Button
                     buttonName={'reset'}
                     onClick={props.resetValueButtonClick}
-                    isDisabled={disabledResetButton}
+                    isDisabled={displayValue === startValue}
                 />
             </div>
         </div>

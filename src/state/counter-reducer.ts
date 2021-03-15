@@ -46,19 +46,10 @@ const initialState: StateType = {
 export function counterReducer(state: StateType = initialState, action: ActionsType) {
     switch (action.type) {
         case 'INC-VALUE': {
-            debugger
-            if (state.displayValue < state.maxValue - 1) {
-                return {
-                    ...state,
-                    displayValue: state.displayValue + 1,
-                    disabledResetButton: false
-                }
-            } else {
-                return {
-                    ...state,
-                    displayValue: state.displayValue + 1,
-                    disabledIncButton: true
-                }
+            return {
+                ...state,
+                displayValue: state.displayValue + 1,
+                disabledResetButton: false
             }
         }
         case 'RESET-VALUE': {
@@ -70,7 +61,6 @@ export function counterReducer(state: StateType = initialState, action: ActionsT
             }
         }
         case "SET-SETTINGS": {
-
             return {
                 ...state,
                 maxValue: action.maxValue,
