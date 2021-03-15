@@ -10,12 +10,12 @@ export function CounterSettings(props: CounterSettingsType) {
 
     const onChangeHandlerMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
         setMaxValue(e.currentTarget.valueAsNumber)
-        props.changeInputValue()
+        props.changeMaxValue(maxValue)
     }
 
     const onChangeHandlerStartValue = (e: ChangeEvent<HTMLInputElement>) => {
         setStartValue(e.currentTarget.valueAsNumber)
-        props.changeInputValue()
+        props.changeStartValue(startValue)
     }
 
     return (
@@ -27,7 +27,7 @@ export function CounterSettings(props: CounterSettingsType) {
                 <div className={s.divSettingsInput}>
                     <input type='number'
                            onChange={onChangeHandlerMaxValue}
-                           value={props.maxValue}
+                           value={maxValue}
                            className={s.inputCounterSettings}/>
                 </div>
                 <div className={s.divSettingsText}>
@@ -36,7 +36,7 @@ export function CounterSettings(props: CounterSettingsType) {
                 <div className={s.divSettingsInput}>
                     <input type='number'
                            onChange={onChangeHandlerStartValue}
-                           value={props.startValue}
+                           value={startValue}
                            className={s.inputCounterSettings}/>
                 </div>
             </div>

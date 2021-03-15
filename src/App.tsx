@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import {Display} from './components/display/Display';
 import {CounterSettings} from './components/counterSettings/CounterSettings';
-import {changeInputValueAC, IncValueAC, ResetValueAC, SetSettingsAC} from "./state/counter-reducer";
+import {ChangeMaxValueAC, ChangeStartValueAC, IncValueAC, ResetValueAC, SetSettingsAC} from "./state/counter-reducer";
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootState} from './state/store';
 
@@ -25,7 +25,8 @@ export type CounterSettingsType = {
     disabledSetButton: boolean
     buttonSetIsDisabled: boolean
     setSettingButtonClick: () => void
-    changeInputValue: () => void
+    changeStartValue: (startValue: number) => void
+    changeMaxValue: (maxValue: number) => void
 }
 
 export type DisplayType = {
@@ -66,8 +67,12 @@ function App() {
         dispatch(SetSettingsAC())
     }
 
-    function changeInputValue() {
-        dispatch(changeInputValueAC())
+    function changeStartValue(startValue: number) {
+        dispatch(ChangeStartValueAC(startValue))
+    }
+
+    function changeMaxValue(maxValue: number) {
+        dispatch(ChangeMaxValueAC(maxValue))
     }
 
     return (
@@ -79,7 +84,8 @@ function App() {
                 disabledSetButton={counterState.disabledSetButton}
                 buttonSetIsDisabled={ButtonSetIsDisabled}
                 setSettingButtonClick={setSetting}
-                changeInputValue={changeInputValue}
+                changeStartValue={changeStartValue}
+                changeMaxValue={changeMaxValue}
             />
             <Display
                 displayValue={counterState.displayValue}

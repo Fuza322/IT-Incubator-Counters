@@ -9,14 +9,26 @@ export type ResetValueActionType = {
 }
 
 export type SetSettingsActionType = {
-    type: 'SET-SETTINGS'
+    type: 'SET-SETTINGS',
+    // startValue: number
 }
 
-export type ChangeInputValueActionType = {
-    type: 'CHANGE-INPUT-VALUE'
+export type ChangeStartValueActionType = {
+    type: 'CHANGE-START-VALUE'
+    startValue: number
 }
 
-export type ActionsType = IncValueActionType | ResetValueActionType | SetSettingsActionType | ChangeInputValueActionType
+export type ChangeMaxValueActionType = {
+    type: 'CHANGE-MAX-VALUE'
+    maxValue: number
+}
+
+export type ActionsType =
+    IncValueActionType
+    | ResetValueActionType
+    | SetSettingsActionType
+    | ChangeStartValueActionType
+    | ChangeMaxValueActionType
 
 const initialState: StateType = {
     startValue: 0,
@@ -34,34 +46,57 @@ export function counterReducer(state: StateType = initialState, action: ActionsT
     switch (action.type) {
         case 'INC-VALUE': {
             if (state.displayValue < state.maxValue) {
-                ++state.displayValue
-                state.disabledResetButton = false
+                return {
+                    ...state,
+                    displayValue: ++state.displayValue,
+                    disabledResetButton: false
+                }
             }
             if (state.displayValue === state.maxValue) {
-                state.disabledIncButton = true
+                return {
+                    ...state,
+                    disabledIncButton: true
+                }
             }
-            return {...state}
+            return state
         }
         case 'RESET-VALUE': {
-            state.displayValue = state.startValue
-            state.disabledResetButton = true
-            state.disabledIncButton = false
-            return {...state}
+            return {
+                ...state,
+                displayValue: state.startValue,
+                disabledResetButton: true,
+                disabledIncButton: false
+            }
         }
         case 'SET-SETTINGS': {
-            state.displayValue = state.startValue
-            state.disabledSetButton = true
-            state.disabledIncButton = false
-            state.disabledResetButton = true
-            state.changingSettings = false
-            return {...state}
+            return {
+                ...state,
+                displayValue: state.startValue,
+                disabledSetButton: true,
+                disabledIncButton: false,
+                disabledResetButton: true,
+                changingSettings: false
+            }
         }
-        case 'CHANGE-INPUT-VALUE': {
-            state.disabledIncButton = true
-            state.disabledResetButton = true
-            state.disabledSetButton = false
-            state.changingSettings = true
-            return {...state}
+        case 'CHANGE-START-VALUE': {
+            return {
+                ...state,
+                startValue: action.startValue,
+                disabledIncButton: true,
+                disabledResetButton: true,
+                disabledSetButton: false,
+                changingSettings: true
+            }
+        }
+        case 'CHANGE-MAX-VALUE': {
+            return {
+                ...state,
+                maxValue: action.maxValue,
+                disabledIncButton: true,
+                disabledResetButton: true,
+                disabledSetButton: false,
+                changingSettings: true
+            }
         }
         default: {
             return state
@@ -81,6 +116,10 @@ export const SetSettingsAC = (): SetSettingsActionType => {
     return {type: 'SET-SETTINGS'}
 }
 
-export const changeInputValueAC = (): ChangeInputValueActionType => {
-    return {type: 'CHANGE-INPUT-VALUE'}
+export const ChangeStartValueAC = (startValue: number): ChangeStartValueActionType => {
+    return {type: 'CHANGE-START-VALUE', startValue: startValue}
+}
+
+export const ChangeMaxValueAC = (maxValue: number): ChangeMaxValueActionType => {
+    return {type: 'CHANGE-MAX-VALUE', maxValue: maxValue}
 }
