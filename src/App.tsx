@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
-import {CounterSettings} from './components/CounterSettings/CounterSettings';
-import {Display} from './components/Display/Display';
+import {CounterSettings} from './components/counterSettings/CounterSettings';
+import {Display} from './components/display/Display';
 
 export type ButtonType = {
     buttonName: string

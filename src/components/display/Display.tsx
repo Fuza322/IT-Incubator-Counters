@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './Display.module.css';
 import {DisplayType} from '../../App';
-import {Button} from '../Button/Button';
+import {Button} from '../button/Button';
 
 export function Display(props: DisplayType) {
 

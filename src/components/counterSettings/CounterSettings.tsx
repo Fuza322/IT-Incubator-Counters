@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from 'react';
 import s from './CounterSettings.module.css';
 import {CounterSettingsType} from '../../App';
-import {Button} from '../Button/Button';
+import {Button} from '../button/Button';
 
 export function CounterSettings(props: CounterSettingsType) {
 
