@@ -41,8 +41,7 @@ function App() {
 
     const dispatch = useDispatch()
     const {startValue, maxValue, disabledSetButton} = useSelector<AppRootStateType, StateType>(state => state.counterState)
-
-
+    
     let buttonSetIsDisabled = (startValue < 0) || (maxValue <= startValue) || disabledSetButton
     let errorNegValue = (maxValue <= startValue) || (startValue < 0)
 

@@ -11,7 +11,6 @@ export function CounterSettings(props: CounterSettingsType) {
     const {startValue, maxValue} = useSelector<AppRootStateType, StateType>(state => state.counterState)
 
     const onChangeHandlerMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
-        debugger
         dispatch(ChangeMaxValueAC(e.currentTarget.valueAsNumber))
     }
 
