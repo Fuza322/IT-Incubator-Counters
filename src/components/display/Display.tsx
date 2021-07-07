@@ -1,28 +1,27 @@
-import React from 'react';
-import s from './Display.module.css';
-import {DisplayType} from '../../App';
-import {Button} from '../button/Button';
+import React from "react"
+import {DisplayType} from "../../App"
+import {Button} from "../button/Button"
+import style from "./Display.module.css"
 
 export function Display(props: DisplayType) {
-
     return (
-        <div className='wrapper'>
-            <div className={`${s.displayContainer} ${props.displayValue === props.maxValue ? s.redValue : ''}`}>
+        <div className="wrapper">
+            <div className={`${style.displayContainer} ${props.displayValue === props.maxValue ? style.redValue : ""}`}>
                 {props.displayValue}
             </div>
-            <div className='buttonsContainer'>
+            <div className="buttonsContainer">
                 <Button
-                    buttonName={'inc'}
+                    buttonName={"inc"}
                     onClick={props.onClickInc}
                     isDisabled={props.displayValue === props.maxValue}
                 />
                 <Button
-                    buttonName={'reset'}
+                    buttonName={"reset"}
                     onClick={props.onClickReset}
                     isDisabled={props.displayValue === props.startValue}
                 />
                 <Button
-                    buttonName={'set'}
+                    buttonName={"set"}
                     onClick={props.onClickSet}
                     isDisabled={false}
                 />

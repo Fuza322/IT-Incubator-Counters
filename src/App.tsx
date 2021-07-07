@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
-import './App.css';
-import {CounterSettings} from './components/counterSettings/CounterSettings';
-import {Display} from './components/display/Display';
+import React, {useState} from "react"
+import {Display} from "./components/display/Display"
+import {CounterSettings} from "./components/counterSettings/CounterSettings"
+import "./App.css"
 
 export type ButtonType = {
     buttonName: string
@@ -29,8 +29,8 @@ export type CounterSettingsType = {
 
 function App() {
 
-    let [startValue, setStartValue] = useState<number>(Number(localStorage.getItem('start')))
-    let [maxValue, setMaxValue] = useState<number>(Number(localStorage.getItem('max')))
+    let [startValue, setStartValue] = useState<number>(Number(localStorage.getItem("start")))
+    let [maxValue, setMaxValue] = useState<number>(Number(localStorage.getItem("max")))
     let [displayValue, setDisplayValue] = useState<number>(startValue)
     let [changeSettings, setChangeSettings] = useState<boolean>(true)
 
@@ -50,8 +50,8 @@ function App() {
         setChangeSettings(!changeSettings)
         setDisplayValue(startValue)
 
-        localStorage.setItem('start', startValue.toString())
-        localStorage.setItem('max', maxValue.toString())
+        localStorage.setItem("start", startValue.toString())
+        localStorage.setItem("max", maxValue.toString())
     }
 
     return (
@@ -74,7 +74,7 @@ function App() {
                     onClickSet={setSettings}/>
             }
         </div>
-    );
+    )
 }
 
-export default App;
+export default App

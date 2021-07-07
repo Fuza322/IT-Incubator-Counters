@@ -1,7 +1,7 @@
-import React, {ChangeEvent} from 'react';
-import s from './CounterSettings.module.css';
-import {CounterSettingsType} from '../../App';
-import {Button} from '../button/Button';
+import React, {ChangeEvent} from "react"
+import {CounterSettingsType} from "../../App"
+import {Button} from "../button/Button"
+import style from "./CounterSettings.module.css"
 
 export function CounterSettings(props: CounterSettingsType) {
 
@@ -14,30 +14,30 @@ export function CounterSettings(props: CounterSettingsType) {
     }
 
     return (
-        <div className='wrapper'>
-            <div className={s.counterSettingsField}>
-                <div className={s.divSettingsText}>
+        <div className="wrapper">
+            <div className={style.counterSettingsField}>
+                <div className={style.divSettingsText}>
                     max value:
                 </div>
-                <div className={s.divSettingsInput}>
-                    <input type='number'
+                <div className={style.divSettingsInput}>
+                    <input type="number"
                            onChange={onChangeHandlerMaxValue}
                            value={props.maxValue}
-                           className={`${s.inputCounterSettings} ${props.settingsError ? s.errorSettingsInput : ''}`}/>
+                           className={`${style.inputCounterSettings} ${props.settingsError ? style.errorSettingsInput : ""}`}/>
                 </div>
-                <div className={s.divSettingsText}>
+                <div className={style.divSettingsText}>
                     start value:
                 </div>
-                <div className={s.divSettingsInput}>
-                    <input type='number'
+                <div className={style.divSettingsInput}>
+                    <input type="number"
                            onChange={onChangeHandlerStartValue}
                            value={props.startValue}
-                           className={`${s.inputCounterSettings} ${props.settingsError ? s.errorSettingsInput : ''}`}/>
+                           className={`${style.inputCounterSettings} ${props.settingsError ? style.errorSettingsInput : ""}`}/>
                 </div>
             </div>
-            <div className='buttonsContainer'>
+            <div className="buttonsContainer">
                 <Button
-                    buttonName={'set'}
+                    buttonName={"set"}
                     onClick={props.onClickSet}
                     isDisabled={props.settingsError}
                 />
