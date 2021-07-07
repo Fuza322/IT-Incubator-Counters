@@ -1,12 +1,13 @@
-import React, {ChangeEvent} from 'react';
-import s from './CounterSettings.module.css';
-import {CounterSettingsType, StateType} from '../../App';
-import {Button} from '../button/Button';
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../state/store";
-import {ChangeMaxValueAC, ChangeStartValueAC} from "../../state/counter-reducer";
+import React, {ChangeEvent} from "react"
+import {useDispatch, useSelector} from "react-redux"
+import {AppRootStateType} from "../../state/store"
+import {ChangeMaxValueAC, ChangeStartValueAC} from "../../state/counter-reducer"
+import {CounterSettingsType, StateType} from "../../App"
+import {Button} from "../button/Button"
+import style from "./CounterSettings.module.css"
 
 export function CounterSettings(props: CounterSettingsType) {
+
     const dispatch = useDispatch()
     const {startValue, maxValue} = useSelector<AppRootStateType, StateType>(state => state.counterState)
 
@@ -19,30 +20,30 @@ export function CounterSettings(props: CounterSettingsType) {
     }
 
     return (
-        <div className='wrapper'>
-            <div className={s.counterSettingsField}>
-                <div className={s.divSettingsText}>
+        <div className="wrapper">
+            <div className={style.counterSettingsField}>
+                <div className={style.divSettingsText}>
                     max value:
                 </div>
-                <div className={s.divSettingsInput}>
-                    <input type='number'
+                <div className={style.divSettingsInput}>
+                    <input type="number"
                            onChange={onChangeHandlerMaxValue}
                            value={maxValue}
-                           className={s.inputCounterSettings}/>
+                           className={style.inputCounterSettings}/>
                 </div>
-                <div className={s.divSettingsText}>
+                <div className={style.divSettingsText}>
                     start value:
                 </div>
-                <div className={s.divSettingsInput}>
-                    <input type='number'
+                <div className={style.divSettingsInput}>
+                    <input type="number"
                            onChange={onChangeHandlerStartValue}
                            value={startValue}
-                           className={s.inputCounterSettings}/>
+                           className={style.inputCounterSettings}/>
                 </div>
             </div>
-            <div className='buttonsContainer'>
+            <div className="buttonsContainer">
                 <Button
-                    buttonName={'set'}
+                    buttonName={"set"}
                     onClick={() => props.setSettingButtonClick(maxValue, startValue)}
                     isDisabled={props.buttonSetIsDisabled}
                 />

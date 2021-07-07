@@ -1,31 +1,31 @@
-import React from 'react';
-import s from './Display.module.css';
-import {DisplayType, StateType} from '../../App';
-import {Button} from '../button/Button';
-import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../state/store";
+import React from "react"
+import {useSelector} from "react-redux"
+import {AppRootStateType} from "../../state/store"
+import {DisplayType, StateType} from "../../App"
+import {Button} from "../button/Button"
+import style from "./Display.module.css"
 
 export function Display(props: DisplayType) {
 
     const {maxValue, startValue, displayValue, changingSettings} = useSelector<AppRootStateType, StateType>(state => state.counterState)
 
     return (
-        <div className='wrapper'>
+        <div className="wrapper">
             <div
-                className={`${s.displayContainer} ${props.errorNegValue ? s.redErrorTextStyle : changingSettings ? s.changingSettingsTextStyle : displayValue === maxValue ? s.redValue : ''}`}>
+                className={`${style.displayContainer} ${props.errorNegValue ? style.redErrorTextStyle : changingSettings ? style.changingSettingsTextStyle : displayValue === maxValue ? style.redValue : ""}`}>
                 {
                     (props.errorNegValue) ? <div>Incorrect value!</div> : (changingSettings) ?
                         <div>enter values and press 'set'</div> : displayValue
                 }
             </div>
-            <div className='buttonsContainer'>
+            <div className="buttonsContainer">
                 <Button
-                    buttonName={'inc'}
+                    buttonName={"inc"}
                     onClick={props.incValueButtonClick}
                     isDisabled={displayValue >= maxValue}
                 />
                 <Button
-                    buttonName={'reset'}
+                    buttonName={"reset"}
                     onClick={props.resetValueButtonClick}
                     isDisabled={displayValue === startValue}
                 />

@@ -1,20 +1,18 @@
-import React from 'react';
-import './App.css';
-import {Display} from './components/display/Display';
-import {CounterSettings} from './components/counterSettings/CounterSettings';
-import {ChangeMaxValueAC, ChangeStartValueAC, IncValueAC, ResetValueAC, SetSettingsAC} from "./state/counter-reducer";
-import {useDispatch, useSelector} from 'react-redux';
-import {AppRootStateType} from './state/store';
+import React from "react"
+import {useDispatch, useSelector} from "react-redux"
+import {AppRootStateType} from "./state/store"
+import {ChangeMaxValueAC, ChangeStartValueAC, IncValueAC, ResetValueAC, SetSettingsAC} from "./state/counter-reducer"
+import {Display} from "./components/display/Display"
+import {CounterSettings} from "./components/counterSettings/CounterSettings"
+import "./App.css"
 
 export type StateType = {
     startValue: number
     maxValue: number
     displayValue: number
-
     disabledIncButton: boolean
     disabledResetButton: boolean
     disabledSetButton: boolean
-
     changingSettings: boolean
 }
 
@@ -66,7 +64,7 @@ function App() {
     }
 
     return (
-        <div className='App'>
+        <div className="App">
             <CounterSettings
                 buttonSetIsDisabled={buttonSetIsDisabled}
                 setSettingButtonClick={setSetting}
@@ -79,7 +77,7 @@ function App() {
                 resetValueButtonClick={resetValue}
             />
         </div>
-    );
+    )
 }
 
-export default App;
+export default App
