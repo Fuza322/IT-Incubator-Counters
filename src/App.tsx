@@ -29,16 +29,16 @@ export type CounterSettingsType = {
 
 function App() {
 
-    let [startValue, setStartValue] = useState<number>(Number(localStorage.getItem("start")))
-    let [maxValue, setMaxValue] = useState<number>(Number(localStorage.getItem("max")))
-    let [displayValue, setDisplayValue] = useState<number>(startValue)
-    let [changeSettings, setChangeSettings] = useState<boolean>(true)
+    const [startValue, setStartValue] = useState<number>(Number(localStorage.getItem("start")))
+    const [maxValue, setMaxValue] = useState<number>(Number(localStorage.getItem("max")))
+    const [displayValue, setDisplayValue] = useState<number>(startValue)
+    const [changeSettings, setChangeSettings] = useState<boolean>(true)
 
     let settingsError = (startValue < 0) || (maxValue <= startValue)
 
     function incValue() {
         if (displayValue < maxValue) {
-            setDisplayValue(++displayValue)
+            setDisplayValue(displayValue => ++displayValue)
         }
     }
 
@@ -56,23 +56,23 @@ function App() {
 
     return (
         <div className="App">
-            {
-                changeSettings
+            {changeSettings
                 ? <Display
                     displayValue={displayValue}
                     maxValue={maxValue}
                     startValue={startValue}
                     onClickInc={incValue}
                     onClickReset={resetValue}
-                    onClickSet={setSettings}/>
+                    onClickSet={setSettings}
+                />
                 : <CounterSettings
                     maxValue={maxValue}
                     startValue={startValue}
                     setMaxValue={setMaxValue}
                     setStartValue={setStartValue}
                     settingsError={settingsError}
-                    onClickSet={setSettings}/>
-            }
+                    onClickSet={setSettings}
+                />}
         </div>
     )
 }
