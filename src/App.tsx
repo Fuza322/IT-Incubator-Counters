@@ -35,22 +35,22 @@ export type ButtonType = {
 
 function App() {
 
-    let [startValue, setStartValue] = useState<number>(Number(localStorage.getItem("start")))
-    let [maxValue, setMaxValue] = useState<number>(Number(localStorage.getItem("max")))
-    let [displayValue, setDisplayValue] = useState<number>(startValue)
+    const [startValue, setStartValue] = useState<number>(Number(localStorage.getItem("start")))
+    const [maxValue, setMaxValue] = useState<number>(Number(localStorage.getItem("max")))
+    const [displayValue, setDisplayValue] = useState<number>(startValue)
 
-    let [disabledSetButton, setDisabledSetButton] = useState<boolean>(true)
-    let [disabledIncButton, setDisabledIncButton] = useState<boolean>(false)
-    let [disabledResetButton, setDisabledResetButton] = useState<boolean>(true)
+    const [disabledSetButton, setDisabledSetButton] = useState<boolean>(true)
+    const [disabledIncButton, setDisabledIncButton] = useState<boolean>(false)
+    const [disabledResetButton, setDisabledResetButton] = useState<boolean>(true)
 
-    let [changingSettings, setChangingSettings] = useState<boolean>(false)
+    const [changingSettings, setChangingSettings] = useState<boolean>(false)
 
     let ButtonSetIsDisabled = (startValue < 0) || (maxValue <= startValue) || disabledSetButton
     let errorNegValue = (maxValue <= startValue) || (startValue < 0)
 
     function incValue() {
         if (displayValue < maxValue) {
-            setDisplayValue(++displayValue)
+            setDisplayValue(displayValue => ++displayValue)
             setDisabledResetButton(false)
         }
         if (displayValue === maxValue) {
