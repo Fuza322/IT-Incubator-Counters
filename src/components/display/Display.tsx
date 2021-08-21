@@ -10,7 +10,7 @@ export function Display(props: DisplayType) {
             <div
                 className={`${style.displayContainer} ${props.errorNegValue ? style.redErrorTextStyle : props.changingSettings ? style.changingSettingsTextStyle : props.displayValue === props.maxValue ? style.redValue : ""}`}>
                 {(props.errorNegValue) ? <div>Incorrect value!</div> : (props.changingSettings) ?
-                        <div>enter values and press 'set'</div> : props.displayValue}
+                    <div>enter values and press 'set'</div> : props.displayValue}
             </div>
             <div className="buttonsContainer">
                 <Button

@@ -26,18 +26,20 @@ export function CounterSettings(props: CounterSettingsType) {
             <div className={style.counterSettingsField}>
                 <span className={style.divSettingsText}>max value:</span>
                 <div className={style.divSettingsInput}>
-                    <input type="number"
-                           onChange={onChangeHandlerMaxValue}
-                           value={props.maxValue}
-                           className={style.inputCounterSettings}
+                    <input
+                        type="number"
+                        onChange={onChangeHandlerMaxValue}
+                        value={props.maxValue}
+                        className={style.inputCounterSettings}
                     />
                 </div>
                 <span className={style.divSettingsText}>start value:</span>
                 <div className={style.divSettingsInput}>
-                    <input type="number"
-                           value={props.startValue}
-                           onChange={onChangeHandlerStartValue}
-                           className={style.inputCounterSettings}
+                    <input
+                        type="number"
+                        value={props.startValue}
+                        onChange={onChangeHandlerStartValue}
+                        className={style.inputCounterSettings}
                     />
                 </div>
             </div>
